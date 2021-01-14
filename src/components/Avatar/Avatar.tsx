@@ -20,11 +20,11 @@ export interface IAvatarProps {
   shape?: 'default' | 'circle'
 }
 
-const Avatar: React.FC<IAvatarProps> = ({ source, alt, ...props }) => {
+export const Avatar = ({ source, alt, shape = 'default', size = '64px' }: IAvatarProps) => {
   const [isLoaded, setLoaded] = React.useState(false)
 
   return (
-    <StyledAvatar {...props}>
+    <StyledAvatar shape={shape} size={size}>
       <Image
         src={source}
         isLoaded={isLoaded}
@@ -32,19 +32,19 @@ const Avatar: React.FC<IAvatarProps> = ({ source, alt, ...props }) => {
         onError={() => setLoaded(false)}
         alt={alt}
       />
-      {!isLoaded && alt[0]}
+      {!isLoaded && alt?.[0]}
     </StyledAvatar>
   )
 }
 
-Avatar.defaultProps = {
-  shape: 'default',
-  size: '64px',
-}
+// Avatar.defaultProps = {
+//   shape: 'default',
+//   size: '64px',
+// }
 
-export { Avatar }
+// export { Avatar }
 
-const StyledAvatar = styled.div`
+const StyledAvatar = styled.div<IAvatarProps>`
   && {
     display: flex;
     overflow: hidden;
@@ -57,7 +57,7 @@ const StyledAvatar = styled.div`
   }
 `
 
-const Image = styled.img`
+const Image = styled.img<{ isLoaded: boolean }>`
   width: 100%;
   object-fit: cover;
   display: ${({ isLoaded }) => (isLoaded ? 'block' : 'none')};

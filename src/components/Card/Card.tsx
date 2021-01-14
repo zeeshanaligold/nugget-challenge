@@ -51,7 +51,7 @@ Card.defaultProps = {
 
 export { Card }
 
-const StyledCard = styled.div`
+const StyledCard = styled.div<Pick<ICardProps, 'borderColor'>>`
   && {
     display: flex;
     text-align: center;

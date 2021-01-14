@@ -1,1 +1,1 @@
-export { Card, ICardProps } from './Card'
+export * from './Card'
